@@ -1,0 +1,83 @@
+<html>
+
+<!-- XXX: I'm defining the box and border sizes as constants in the controller. Not sure that
+				  is kosher. Should that be constants in the CSS itself? -->
+
+<style>
+
+div {
+	box-sizing: border-box;
+}
+
+#two {
+	background-color: {{$ctrl.two_Bg}};
+	height: {{2 * $ctrl.boxSize}}px;
+	width: {{2 * $ctrl.boxSize}}px;
+	border-style: solid;
+	border-width: {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px;
+}
+
+#oneA {
+	background-color: {{$ctrl.oneA_Bg}};
+	height: {{$ctrl.boxSize}}px;
+	width: {{$ctrl.boxSize}}px;
+	position: relative;
+	top: {{-$ctrl.borderSize}}px;
+	left: {{2 * $ctrl.boxSize - $ctrl.borderSize}}px;
+	border-style: solid;
+	border-width: {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px 0px;
+}
+
+#oneB {
+	background-color: {{$ctrl.oneB_Bg}};
+	height: {{$ctrl.boxSize}}px;
+	width: {{$ctrl.boxSize}}px;
+	position: relative;
+	top: {{$ctrl.boxSize - $ctrl.borderSize}}px;
+	border-style: solid;
+	border-width: 0px {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px 0px;
+}
+
+#three {
+	background-color: {{$ctrl.three_Bg}};
+	height: {{3 * $ctrl.boxSize}}px;
+	width: {{3 * $ctrl.boxSize}}px;
+	position: relative;
+	top: {{$ctrl.boxSize}}px;
+	left: {{-2 * $ctrl.boxSize}}px;
+	border-style: solid;
+	border-width: 0px {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px;
+}
+
+#five {
+	background-color: {{$ctrl.five_Bg}};
+	height: {{5 * $ctrl.boxSize}}px;
+	width: {{5 * $ctrl.boxSize}}px;
+	position: relative;
+	top: {{-2 * $ctrl.boxSize}}px;
+	left: {{3 * $ctrl.boxSize - $ctrl.borderSize}}px;
+	border-style: solid;
+	border-width: {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px {{$ctrl.borderSize}}px 0px;
+}
+
+#digital {
+	width: {{8 * $ctrl.boxSize}}px;
+	position: relative;
+	top: {{5 * $ctrl.boxSize}}px;
+	left: {{-3 * $ctrl.boxSize}}px;
+	text-align: center;
+	font-size: {{$ctrl.digitalFontSize}}px;
+}
+</style>
+
+<body>
+	<div id="two" />
+	<div id="oneA" />
+	<div id="oneB" />
+	<div id="three" />
+	<div id="five" />
+	<div id="digital">
+		{{$ctrl.hours + ' : ' + $ctrl.minuteDisplay() + ' ' + $ctrl.ampm}}
+	</div>
+</body>
+</html>
