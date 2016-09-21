@@ -11,7 +11,7 @@ describe('Clock', function() {
 	}));
 
 	it('should return an empty array for value 0 (zero)', function() {
-		var result = Clock.get(0);
+		var result = Clock.decompose(0);
 		expect(result.length).toBe(0);
 	});
 
@@ -27,7 +27,7 @@ describe('Clock', function() {
 			return convert(a) + convert(b);
 		};
 		for (var i = 1; i <= 12; ++i) {
-			var output = Clock.get(i);
+			var output = Clock.decompose(i);
 			var result = output.reduce(add, 0);
 			expect(result).toBe(i);
 		};
