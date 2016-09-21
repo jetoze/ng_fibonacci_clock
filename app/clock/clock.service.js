@@ -11,10 +11,15 @@ function RenderedTime(ts, decomposer) {
     this.hourParts = decomposer(this.hours);
     this.minuteParts = decomposer(Math.floor(this.minutes / 5));
 
+    // Returns true if this represents a time before noon.
     this.isAm = function() {
         return this.timestamp.getHours() < 12;
     };
 
+    // Checks if two RenderedTime instances represent the same time, to minute resolution.
+    // We use this to make sure that the clock's display doesn't update with the same
+    // frequency as the animation loop (because the decompose process is random in nature),
+    // but only updates once per minute.
     this.isSameTime = function(that) {
         return (this.hours === that.hours) && (this.minutes === that.minutes);
     };
