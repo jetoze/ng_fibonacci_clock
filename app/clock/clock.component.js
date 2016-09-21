@@ -5,15 +5,6 @@ var MINUTE_COLOR = '#00FF00';
 var HOUR_AND_MINUTE_COLOR = '#0000FF';
 var NO_COLOR = '#FFFFFF';
 
-// Represents a timestamp that is rendered by the clock. The resolution is 5 minutes,
-// since the minute part represents every 5 minutes.
-function RenderedTime(hour, minute) {
-	this.hour = hour;
-	this.minute = minute;
-	this.hourParts = [];
-	this.minuteParts = [];
-}
-
 function getColor(timeToRender, rect) {
 	var hourSet = timeToRender.hourParts.includes(rect);
 	var minuteSet = timeToRender.minuteParts.includes(rect);
@@ -27,14 +18,6 @@ function getColor(timeToRender, rect) {
 		return NO_COLOR;
 	}
 };
-
-function getHours(time) {
-	var h = time.getHours();
-	if (h > 12) {
-		h -= 12;
-	}
-	return h;
-}
 
 angular.module('fibonacciClock').
 	component('clock', {
@@ -55,26 +38,27 @@ angular.module('fibonacciClock').
 			// only when the time actually changes. Otherwise the clock would constantly change
 			// appearance with the same frequency as our animation, since we pick a random 
 			// combination each time. 
-			this.lastRenderedTime = new RenderedTime(-1, -1);
 
 			this.getTimeToRender = function() {
 				var now = Clock.now();
 				console.log(now);
-				this.hours = getHours(now);
-				this.minutes = now.getMinutes();
-				this.ampm = now.getHours() < 12 ? 'AM' : 'PM';
-				var timeToRender = new RenderedTime(this.hours, Math.floor(this.minutes / 5));
-				if ((timeToRender.hour === this.lastRenderedTime.hour) && (timeToRender.minute === this.lastRenderedTime.minute)) {
+				var timeToRender = Clock.timeToRender(now);
+				this.hours = timeToRender.hours;
+				this.minutes = timeToRender.minutes;
+				this.ampm = timeToRender.isAm() ? 'AM' : 'PM';
+				if (this.isNewTime(timeToRender)) {
+					this.lastRenderedTime = timeToRender;
+					console.log('Hours: ' + timeToRender.hours + ' -> ' + timeToRender.hourParts);
+					console.log('Minutes: ' + now.getMinutes() + ' -> ' + timeToRender.minuteParts);
+				} else {
 					timeToRender = this.lastRenderedTime;
 					console.log('No change to render');
-				} else {
-					timeToRender.hourParts = Clock.decompose(timeToRender.hour);
-					timeToRender.minuteParts = Clock.decompose(timeToRender.minute);
-					this.lastRenderedTime = timeToRender;
-					console.log('Hours: ' + timeToRender.hour + ' -> ' + timeToRender.hourParts);
-					console.log('Minutes: ' + now.getMinutes() + ' -> ' + timeToRender.minute + ' -> ' + timeToRender.minuteParts);
 				}
 				return timeToRender;
+			};
+
+			this.isNewTime = function(timeToRender) {
+				return (typeof this.lastRenderedTime === 'undefined') || !timeToRender.isSameTime(this.lastRenderedTime);
 			};
 
 			this.updateDisplay = function(timeToRender) {

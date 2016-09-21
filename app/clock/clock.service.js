@@ -1,5 +1,25 @@
 'use strict'
 
+// Represents a timestamp that is rendered by the clock.
+function RenderedTime(ts, decomposer) {
+    this.timestamp = ts;
+    this.hours = ts.getHours();
+    if (this.hours > 12) {
+        this.hours -= 12;
+    }
+    this.minutes = ts.getMinutes();
+    this.hourParts = decomposer(this.hours);
+    this.minuteParts = decomposer(Math.floor(this.minutes / 5));
+
+    this.isAm = function() {
+        return this.timestamp.getHours() < 12;
+    };
+
+    this.isSameTime = function(that) {
+        return (this.hours === that.hours) && (this.minutes === that.minutes);
+    };
+}
+
 angular.module('fibonacciClock').
 	factory('Clock', function() {
 		// Maps a clock number (0-12) to all possible fibonacci combinations that add up 
@@ -65,6 +85,11 @@ angular.module('fibonacciClock').
         now: function() {
             return new Date();
         },
+
+        timeToRender: function(timestamp) {
+            return new RenderedTime(timestamp, this.decompose);
+        },
+
     	decompose: function(value) {
 	    	var n = (typeof value === 'number') ? value : 0;
 	    	var combinations = reprs[n];
