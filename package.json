@@ -1,6 +1,6 @@
 {
-  "name": "ng-fibonacci-clock",
-  "private": false,
+  "name": "ng_fibonacci_clock",
+  "private": true,
   "version": "0.0.0",
   "description": "A Fibonacci Clock implemented in Angular JS.",
   "repository": "https://github.com/tzeth/ng_fibonacci_clock.git",
