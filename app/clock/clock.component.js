@@ -52,7 +52,7 @@ angular.module('fibonacciClock').
 					console.log('Hours: ' + timeToRender.hours + ' -> ' + timeToRender.hourParts);
 					console.log('Minutes: ' + now.getMinutes() + ' -> ' + timeToRender.minuteParts);
 				} else {
-					timeToRender = this.lastRenderedTime;
+					timeToRender = null;
 					console.log('No change to render');
 				}
 				return timeToRender;
@@ -63,6 +63,9 @@ angular.module('fibonacciClock').
 			};
 
 			this.updateDisplay = function(timeToRender) {
+				if (!timeToRender) {
+					return;
+				}
 				this.oneA_Bg = getColor(timeToRender, "1a");
 				this.oneB_Bg = getColor(timeToRender, "1b");
 				this.two_Bg = getColor(timeToRender, "2");
