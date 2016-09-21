@@ -51,11 +51,11 @@ angular.module('fibonacciClock').
 					this.lastRenderedTime = timeToRender;
 					console.log('Hours: ' + timeToRender.hours + ' -> ' + timeToRender.hourParts);
 					console.log('Minutes: ' + now.getMinutes() + ' -> ' + timeToRender.minuteParts);
+					return timeToRender;
 				} else {
-					timeToRender = null;
 					console.log('No change to render');
+					return null;
 				}
-				return timeToRender;
 			};
 
 			this.isNewTime = function(timeToRender) {
