@@ -37,7 +37,8 @@ angular.module('fibonacciClock').
 			// Keeps track of the last time that was rendered. We use this to switch the display
 			// only when the time actually changes. Otherwise the clock would constantly change
 			// appearance with the same frequency as our animation, since we pick a random 
-			// combination each time. 
+			// combination each time.
+			this.lastRenderedTime = null;
 
 			this.getTimeToRender = function() {
 				var now = Clock.now();
@@ -58,7 +59,7 @@ angular.module('fibonacciClock').
 			};
 
 			this.isNewTime = function(timeToRender) {
-				return (typeof this.lastRenderedTime === 'undefined') || !timeToRender.isSameTime(this.lastRenderedTime);
+				return !this.lastRenderedTime || !timeToRender.isSameTime(this.lastRenderedTime);
 			};
 
 			this.updateDisplay = function(timeToRender) {
