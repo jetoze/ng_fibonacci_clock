@@ -1,9 +1,9 @@
 {
-  "name": "angular-seed",
-  "private": true,
+  "name": "ng-fibonacci-clock",
+  "private": false,
   "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "description": "A Fibonacci Clock implemented in Angular JS.",
+  "repository": "https://github.com/tzeth/ng_fibonacci_clock.git",
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.7.7",
