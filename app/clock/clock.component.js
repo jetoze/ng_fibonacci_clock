@@ -84,16 +84,13 @@ angular.module('fibonacciClock').
 
 			this.update();
 
-			/* FIXME: The following doesn't work. I get an error like this in the console:
-						"TypeError: Cannot read property 'getTimeToRender' of undefined"
-			var fn = this.update;
-			$interval(fn, 1000);
-			*/
-			// HACK: Do it like this for now. Not pretty, obviously, since we're duplicating code.
+			// XXX: It would be nicer to just pass in a reference to this.update, but I have
+			// not been able to get that to work. It results in an error like the following:
+			//   "Cannot read property 'getTimeToRender' of undefined at update (clock.component.js:XY)""
 			var self = this;
 			$interval(function() {
-				var timeToRender = self.getTimeToRender();
-				self.updateDisplay(timeToRender);
+				self.update();
 			}, 1000);
+
 		}]
 	});
