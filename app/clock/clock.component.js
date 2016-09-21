@@ -65,7 +65,7 @@ angular.module('fibonacciClock').
 				this.ampm = now.getHours() < 12 ? 'AM' : 'PM';
 				var timeToRender = new RenderedTime(this.hours, Math.floor(this.minutes / 5));
 				if ((timeToRender.hour === this.lastRenderedTime.hour) && (timeToRender.minute === this.lastRenderedTime.minute)) {
-					timeToRender = lastRenderedTime;
+					timeToRender = this.lastRenderedTime;
 					console.log('No change to render');
 				} else {
 					timeToRender.hourParts = Clock.decompose(timeToRender.hour);
