@@ -76,7 +76,6 @@ angular.module('fibonacciClock').
 			this.update = function() {
 				var timeToRender = this.getTimeToRender();
 				this.updateDisplay(timeToRender);
-				this.boxSize += 10;
 			};
 
 			this.minuteDisplay = function() {
